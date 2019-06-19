@@ -1,7 +1,8 @@
 package com.example.appplaces.Presenter;
 
+import com.example.appplaces.Data.Entity.User;
 import com.example.appplaces.Model.RegisterModel;
-import com.example.appplaces.View.login.register.RegisterInterface;
+import com.example.appplaces.View.register.RegisterInterface;
 
 public class RegisterPresenter implements RegisterInterface.Presenter, RegisterInterface.TaskListener {
     private RegisterInterface.View view;
@@ -18,13 +19,15 @@ public class RegisterPresenter implements RegisterInterface.Presenter, RegisterI
     }
 
     @Override
-    public void toRegister(String name, String email, String password) {
+    public void toRegister(User user) {
         if (view != null) {
             view.disableInputs();
             view.showProgress();
         }
-        model.doRegister(name, email, password);
+        model.doRegister(user);
+
     }
+
 
     @Override
     public void onSuccess() {

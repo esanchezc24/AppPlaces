@@ -11,10 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.appplaces.MainActivity;
+import com.example.appplaces.View.home.MainActivity;
 import com.example.appplaces.Presenter.LoginPresenter;
 import com.example.appplaces.R;
-import com.example.appplaces.View.login.register.RegisterActivity;
+import com.example.appplaces.View.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginInterface.View {
     private EditText edtEmail;
@@ -121,5 +121,10 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
     @Override
     public void onError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

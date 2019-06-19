@@ -1,4 +1,6 @@
-package com.example.appplaces.View.login.register;
+package com.example.appplaces.View.register;
+
+import com.example.appplaces.Data.Entity.User;
 
 public interface RegisterInterface {
     interface View{
@@ -19,10 +21,10 @@ public interface RegisterInterface {
     }
     interface Presenter{
         void onDestroy();
-        void toRegister(String name, String email, String password);
+        void toRegister(User user);
     }
     interface Model{
-        void doRegister(String name,String email, String password);
+        void doRegister(User user);
     }
 
     interface TaskListener{
