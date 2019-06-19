@@ -1,4 +1,4 @@
-package com.example.appplaces.View.register;
+package com.example.appplaces.view.register;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,19 +11,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.appplaces.Data.Entity.User;
-import com.example.appplaces.Presenter.RegisterPresenter;
+import com.example.appplaces.entity.User;
+import com.example.appplaces.presenter.RegisterPresenter;
 import com.example.appplaces.R;
-import com.example.appplaces.View.login.LoginActivity;
+import com.example.appplaces.view.login.LoginActivity;
 
-public class RegisterActivity extends AppCompatActivity implements RegisterInterface.View{
-    private EditText edtName;
-    private EditText edtEmail;
-    private EditText edtPassword;
-    private Button btnRegister;
-    private MaterialDialog dialog;
-    private RegisterInterface.Presenter presenter;
-    private User user;
+public class RegisterActivity extends AppCompatActivity implements RegisterInterface.View {
+
+    EditText edtName;
+    EditText edtEmail;
+    EditText edtPassword;
+    Button btnRegister;
+    MaterialDialog dialog;
+    RegisterInterface.Presenter presenter;
+    User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
 
     @Override
     public void showProgress() {
-            dialog.show();
+        dialog.show();
     }
 
     @Override
@@ -86,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
             Toast.makeText(this, "Email Incorrecto", Toast.LENGTH_SHORT).show();
         else if (!isValidPassword())
             Toast.makeText(this, "Password Incorrecto", Toast.LENGTH_SHORT).show();
-        else{
+        else {
             user = new User();
             user.setName(edtName.getText().toString().trim());
             user.setEmail(edtEmail.getText().toString().trim());
@@ -99,7 +101,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     @Override
     public boolean isValidName() {
         if (TextUtils.isEmpty(edtName.getText().toString())) {
-            Toast.makeText(this, "Nombre Incorrecto", Toast.LENGTH_SHORT).show();
             edtName.setError("Nombre Incorrecto");
             return false;
         } else {
@@ -115,7 +116,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     @Override
     public boolean isValidPassword() {
         if (TextUtils.isEmpty(edtPassword.getText().toString()) || edtPassword.getText().toString().length() < 6) {
-            Toast.makeText(this, "Password Incorrecto, Debe ser mayor a 6 caracteres", Toast.LENGTH_SHORT).show();
             edtPassword.setError("Password Incorrecto");
             return false;
         } else {
@@ -126,7 +126,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     @Override
     public void onRegister() {
         Toast.makeText(this, "REGISTRO EXITOSO", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent (this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, 0);
     }
 

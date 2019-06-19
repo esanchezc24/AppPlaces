@@ -1,4 +1,4 @@
-package com.example.appplaces.Data.Entity;
+package com.example.appplaces.entity;
 
 public class User {
     private String name;

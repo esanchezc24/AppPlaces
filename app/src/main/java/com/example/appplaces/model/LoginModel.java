@@ -1,8 +1,8 @@
-package com.example.appplaces.Model;
+package com.example.appplaces.model;
 
 import android.support.annotation.NonNull;
 
-import com.example.appplaces.View.login.LoginInterface;
+import com.example.appplaces.view.login.LoginInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

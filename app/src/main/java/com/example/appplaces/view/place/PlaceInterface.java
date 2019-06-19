@@ -1,6 +1,8 @@
-package com.example.appplaces.View.login;
+package com.example.appplaces.view.place;
 
-public interface LoginInterface {
+import com.example.appplaces.entity.Place;
+
+public interface PlaceInterface {
     interface View{
         void disableInputs();
         void enableInputs();
@@ -8,21 +10,20 @@ public interface LoginInterface {
         void showProgress();
         void hideProgress();
 
-        void handleLogin();
+        void handleSave();
 
-        boolean isValidEmail();
-        boolean isValidPassword();
+        boolean isValidDescription();
+        boolean isValidFotos();
 
-        void onLogin();
+        void onSave();
         void onError(String error);
-
     }
     interface Presenter{
         void onDestroy();
-        void toLogin(String email, String password);
+        void toSave(Place place);
     }
     interface Model{
-        void doLogin(String email, String password);
+        void doSave(Place place);
     }
     interface TaskListener{
         void onSuccess();

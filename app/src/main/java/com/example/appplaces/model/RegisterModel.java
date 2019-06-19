@@ -1,10 +1,9 @@
-package com.example.appplaces.Model;
+package com.example.appplaces.model;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.example.appplaces.Data.Entity.User;
-import com.example.appplaces.View.register.RegisterInterface;
+import com.example.appplaces.entity.User;
+import com.example.appplaces.view.register.RegisterInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,7 +21,6 @@ public class RegisterModel implements RegisterInterface.Model {
     private RegisterInterface.TaskListener taskListener;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private String uid;
 
     public RegisterModel(RegisterInterface.TaskListener taskListener) {
         this.taskListener = taskListener;
@@ -31,7 +29,6 @@ public class RegisterModel implements RegisterInterface.Model {
 
     @Override
     public void doRegister(final User user) {
-
         firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -45,7 +42,6 @@ public class RegisterModel implements RegisterInterface.Model {
     }
 
     public void addUser(User user, String uid) {
-        Log.i("MENSAJE", "SE VA A AGREGAR "+uid);
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("name", user.getName());
         objectMap.put("email", user.getEmail());

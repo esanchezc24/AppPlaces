@@ -1,6 +1,6 @@
-package com.example.appplaces.View.register;
+package com.example.appplaces.view.register;
 
-import com.example.appplaces.Data.Entity.User;
+import com.example.appplaces.entity.User;
 
 public interface RegisterInterface {
     interface View{

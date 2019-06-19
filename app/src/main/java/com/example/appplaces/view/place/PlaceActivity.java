@@ -1,4 +1,4 @@
-package com.example.appplaces.View.place;
+package com.example.appplaces.view.place;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,10 +14,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.appplaces.Data.Entity.Place;
+import com.example.appplaces.entity.Place;
 import com.example.appplaces.R;
-
-import java.util.ArrayList;
+import com.example.appplaces.presenter.PlacePresenter;
 
 public class PlaceActivity extends AppCompatActivity implements PlaceInterface.View {
 
@@ -38,7 +37,7 @@ public class PlaceActivity extends AppCompatActivity implements PlaceInterface.V
         imgFotos = findViewById(R.id.imgFotos);
         btnFotos = findViewById(R.id.btnFotos);
         btnSave = findViewById(R.id.btnSave);
-//        presenter = new PlaceInterface(this);
+        presenter = new PlacePresenter(this);
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title("Cargando")
                 .content("Espere, por favor...")
@@ -52,6 +51,13 @@ public class PlaceActivity extends AppCompatActivity implements PlaceInterface.V
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "Seleccione Imagen"), PICK_IMAGE_REQUEST);
+            }
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleSave();
             }
         });
     }
@@ -97,12 +103,14 @@ public class PlaceActivity extends AppCompatActivity implements PlaceInterface.V
 
     @Override
     public void handleSave() {
-        if (isValidDescription() && isValidFotos()) {
+        if (!isValidDescription()) {
+            Toast.makeText(this, "Descripción Incorrecta", Toast.LENGTH_SHORT).show();
+        } else if (!isValidFotos()) {
+            Toast.makeText(this, "Suba alguna foto", Toast.LENGTH_SHORT).show();
+        } else {
             place = new Place();
             place.setDescription(edtDecription.getText().toString().trim());
-//            place.setUser();
-        } else {
-            Toast.makeText(this, "No se puede guardar", Toast.LENGTH_SHORT).show();
+            presenter.toSave(place);
         }
 
     }
@@ -110,7 +118,6 @@ public class PlaceActivity extends AppCompatActivity implements PlaceInterface.V
     @Override
     public boolean isValidDescription() {
         if (TextUtils.isEmpty(edtDecription.getText().toString())) {
-            Toast.makeText(this, "Descripción Incorrecto", Toast.LENGTH_SHORT).show();
             edtDecription.setError("Nombre Incorrecto");
             return false;
         } else {
@@ -120,10 +127,10 @@ public class PlaceActivity extends AppCompatActivity implements PlaceInterface.V
 
     @Override
     public boolean isValidFotos() {
-        if (filePath != null)
-            return true;
-        else
+        if (filePath == null) {
             return false;
+        } else
+            return true;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.appplaces.View.login;
+package com.example.appplaces.view.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.appplaces.View.home.MainActivity;
-import com.example.appplaces.Presenter.LoginPresenter;
+import com.example.appplaces.view.home.MainActivity;
+import com.example.appplaces.presenter.LoginPresenter;
 import com.example.appplaces.R;
-import com.example.appplaces.View.register.RegisterActivity;
+import com.example.appplaces.view.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginInterface.View {
     private EditText edtEmail;
@@ -103,7 +103,6 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
     @Override
     public boolean isValidPassword() {
         if (TextUtils.isEmpty(edtPassword.getText().toString())) {
-            Toast.makeText(this, "Password Incorrecto", Toast.LENGTH_SHORT).show();
             edtPassword.setError("Password Incorrecto");
             return false;
         } else {

@@ -1,7 +1,7 @@
-package com.example.appplaces.Presenter;
+package com.example.appplaces.presenter;
 
-import com.example.appplaces.Model.LoginModel;
-import com.example.appplaces.View.login.LoginInterface;
+import com.example.appplaces.model.LoginModel;
+import com.example.appplaces.view.login.LoginInterface;
 
 public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.TaskListener {
     private LoginInterface.View view;

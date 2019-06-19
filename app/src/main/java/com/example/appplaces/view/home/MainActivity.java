@@ -1,4 +1,4 @@
-package com.example.appplaces.View.home;
+package com.example.appplaces.view.home;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.appplaces.R;
-import com.example.appplaces.View.place.PlaceActivity;
+import com.example.appplaces.view.place.PlaceActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnPlace;

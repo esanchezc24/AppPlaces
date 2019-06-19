@@ -1,23 +1,25 @@
-package com.example.appplaces.Data.Entity;
+package com.example.appplaces.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Place {
     private String id;
     private User user;
     private String description;
-    private ArrayList arrayFotos;
+    private List<String> arrayFotos;
     private Date createdAt;
 
     public Place() {
+        this.arrayFotos = new ArrayList<>();
     }
 
-    public Place(String id, User user, String description, ArrayList arrayFotos, Date createdAt) {
+    public Place(String id, User user, String description, Date createdAt) {
         this.id = id;
         this.user = user;
         this.description = description;
-        this.arrayFotos = arrayFotos;
+        this.arrayFotos = new ArrayList<>();
         this.createdAt = createdAt;
     }
 
@@ -45,10 +47,6 @@ public class Place {
         this.description = description;
     }
 
-    public ArrayList getArrayFotos() {
-        return arrayFotos;
-    }
-
     public void setArrayFotos(ArrayList arrayFotos) {
         this.arrayFotos = arrayFotos;
     }
@@ -59,5 +57,9 @@ public class Place {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void addFoto(String url){
+        this.arrayFotos.add(url);
     }
 }

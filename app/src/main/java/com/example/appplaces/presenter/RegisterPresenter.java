@@ -1,8 +1,8 @@
-package com.example.appplaces.Presenter;
+package com.example.appplaces.presenter;
 
-import com.example.appplaces.Data.Entity.User;
-import com.example.appplaces.Model.RegisterModel;
-import com.example.appplaces.View.register.RegisterInterface;
+import com.example.appplaces.entity.User;
+import com.example.appplaces.model.RegisterModel;
+import com.example.appplaces.view.register.RegisterInterface;
 
 public class RegisterPresenter implements RegisterInterface.Presenter, RegisterInterface.TaskListener {
     private RegisterInterface.View view;
