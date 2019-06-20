@@ -19,6 +19,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.appplaces.entity.Place;
 import com.example.appplaces.R;
 import com.example.appplaces.presenter.PlacePresenter;
+import com.example.appplaces.view.home.MainActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class PlaceActivity extends Activity implements PlaceInterface.View {
     private ImageView imgFotos2;
     private Place place;
 
-    private List<Uri> imagePathList;
+    private ArrayList<Uri> imagePathList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,6 @@ public class PlaceActivity extends Activity implements PlaceInterface.View {
                 if (data.getClipData() != null) {
                     ClipData mClipData = data.getClipData();
                     int count = mClipData.getItemCount();
-                    Log.i("TAG", "CUANTO " + count);
                     if (count > 2) {
                         Toast.makeText(this, "Solo se puede subir dos imagenes", Toast.LENGTH_SHORT).show();
                         count = 2;
@@ -157,7 +157,8 @@ public class PlaceActivity extends Activity implements PlaceInterface.View {
         } else {
             place = new Place();
             place.setDescription(edtDecription.getText().toString().trim());
-            presenter.toSave(place);
+            Log.i("MENSAJE","CANTIDAD DE "+imagePathList.size());
+            presenter.toSave(place,imagePathList);
         }
 
     }
@@ -174,15 +175,18 @@ public class PlaceActivity extends Activity implements PlaceInterface.View {
 
     @Override
     public boolean isValidFotos() {
-//        if (filePath == null) {
-//            return false;
-//        } else
-        return true;
+
+        if (imagePathList == null)
+            return false;
+        else
+            return true;
     }
 
     @Override
     public void onSave() {
         Toast.makeText(this, "SE REGISTRO CON EXITO", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivityForResult(intent, 0);
     }
 
     @Override

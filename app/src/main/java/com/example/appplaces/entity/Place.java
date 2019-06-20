@@ -51,6 +51,10 @@ public class Place {
         this.arrayFotos = arrayFotos;
     }
 
+    public List<String> getArrayFotos() {
+        return arrayFotos;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -63,3 +67,4 @@ public class Place {
         this.arrayFotos.add(url);
     }
 }
+

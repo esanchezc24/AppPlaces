@@ -1,8 +1,12 @@
 package com.example.appplaces.presenter;
 
+import android.net.Uri;
+
 import com.example.appplaces.entity.Place;
 import com.example.appplaces.model.PlaceModel;
 import com.example.appplaces.view.place.PlaceInterface;
+
+import java.util.ArrayList;
 
 public class PlacePresenter implements PlaceInterface.Presenter, PlaceInterface.TaskListener {
     private PlaceInterface.View view;
@@ -19,12 +23,12 @@ public class PlacePresenter implements PlaceInterface.Presenter, PlaceInterface.
     }
 
     @Override
-    public void toSave(Place place) {
+    public void toSave(Place place, ArrayList<Uri> fotos) {
         if (view != null) {
             view.disableInputs();
             view.showProgress();
         }
-        model.doSave(place);
+        model.doSave(place,fotos);
     }
 
     @Override
