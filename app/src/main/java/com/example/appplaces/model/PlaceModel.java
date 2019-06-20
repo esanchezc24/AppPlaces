@@ -3,15 +3,11 @@ package com.example.appplaces.model;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.appplaces.entity.Place;
 import com.example.appplaces.view.place.PlaceInterface;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,11 +18,8 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class PlaceModel implements PlaceInterface.Model {
     private PlaceInterface.TaskListener taskListener;
@@ -76,7 +69,6 @@ public class PlaceModel implements PlaceInterface.Model {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.i("MENSAJE","LISTA DE URL "+listUrl.size());
                         for (int i = 0; i < listUrl.size(); i++) {
                             Map<String, Object> image = new HashMap<>();
                             image.put("url", listUrl.get(i));
