@@ -1,6 +1,7 @@
 package com.example.appplaces.view.home;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,14 @@ import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder> {
     private ArrayList<Place> lisPlaces;
+    ViewPager viewPager;
+    private FotoAdapter fotoAdapter;
     Context context;
 
     public MainAdapter(ArrayList<Place> lisPlaces,Context context) {
         this.lisPlaces = lisPlaces;
         this.context = context;
+
     }
 
     @Override
@@ -31,11 +35,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     @Override
     public void onBindViewHolder(MainAdapter.MainViewHolder holder, int position) {
         Place place = lisPlaces.get(position);
-        holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
-        Picasso.with(context).load(lisPlaces.get(position).getArrayFotos().get(0)).into(holder.imgFoto);
-//        Picasso.with(context)
-//                .load(subjectData.Image)
-//                .into(imag);
+        fotoAdapter = new FotoAdapter(context,(ArrayList<String>) lisPlaces.get(position).getArrayFotos());
+        viewPager.setAdapter(fotoAdapter);
+//        holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
+//        Picasso.with(context).load(lisPlaces.get(position).getArrayFotos().get(0)).into(holder.imgFoto);
         holder.tvDescription.setText(place.getDescription());
         holder.tvUser.setText(place.getUser().getName());
     }
@@ -46,14 +49,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgFoto;
+//        ImageView imgFoto;
         TextView tvDescription;
         TextView tvUser;
         public MainViewHolder(View itemView) {
             super(itemView);
-            imgFoto = (ImageView) itemView.findViewById(R.id.imgFoto);
+//            imgFoto = (ImageView) itemView.findViewById(R.id.imgFoto);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvUser = (TextView) itemView.findViewById(R.id.tvUser);
+            viewPager = (ViewPager) itemView.findViewById(R.id.imgFoto);
         }
     }
 }

@@ -11,13 +11,18 @@
         app:cardCornerRadius="5dp"
         app:cardElevation="5dp">
 
-        <ImageView
+        <!--<ImageView-->
+            <!--android:id="@+id/imgFoto"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="170dp"-->
+            <!--android:layout_weight="4"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/ic_launcher_background" />-->
+        <android.support.v4.view.ViewPager
             android:id="@+id/imgFoto"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:layout_weight="4"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
