@@ -6,7 +6,7 @@ import com.example.appplaces.view.home.MainInterface;
 
 import java.util.ArrayList;
 
-public class MainPresenter implements MainInterface.Presenter, MainInterface.TaskListener {
+public class MainPresenter implements MainInterface.Presenter, MainInterface.TaskListener{
     private MainInterface.View view;
     private MainInterface.Model model;
 

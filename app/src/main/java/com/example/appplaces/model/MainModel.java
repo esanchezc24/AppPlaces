@@ -7,8 +7,11 @@ import com.example.appplaces.entity.Place;
 import com.example.appplaces.entity.User;
 import com.example.appplaces.view.home.MainInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -18,17 +21,20 @@ import org.w3c.dom.Document;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
 
 public class MainModel implements MainInterface.Model {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private ArrayList<Place> lisPlaces;
     private Place place;
     private User user;
-    int count=0, countPlace;
+    int count = 0, countPlace;
 
 
     public MainModel() {
@@ -41,7 +47,7 @@ public class MainModel implements MainInterface.Model {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    countPlace=task.getResult().size();
+                    countPlace = task.getResult().size();
                     lisPlaces = new ArrayList<>();
                     for (int i = 0; i < task.getResult().size(); i++) {
                         DocumentSnapshot document = task.getResult().getDocuments().get(i);
@@ -60,7 +66,7 @@ public class MainModel implements MainInterface.Model {
                                 user.setId(documentUser.getId());
                                 user.setEmail(documentUser.getString("email"));
                                 user.setName(documentUser.getString("name"));
-                                lisPlaces.get(count-1).setUser(user);
+                                lisPlaces.get(count - 1).setUser(user);
 //                                place.setUser(user); //se agrega el user a place
 //                                lisPlaces.add(place); //se agrega el place al array
                                 if (count == countPlace)
@@ -73,5 +79,20 @@ public class MainModel implements MainInterface.Model {
             }
         });
 
+    }
+
+    @Override
+    public void saveLocation(String latitud, String longitud) {
+        Map<String, Object> objectMap = new HashMap<>();
+        objectMap.put("latitud", latitud);
+        objectMap.put("longitud", longitud);
+        db.collection("users").document(firebaseAuth.getCurrentUser().getUid())
+                .update(objectMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("MENSAJE","Se actualizo coordenadas "+latitud+" "+longitud);
+                    }
+                });
     }
 }

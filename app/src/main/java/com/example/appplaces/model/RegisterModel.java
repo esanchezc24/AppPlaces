@@ -28,7 +28,7 @@ public class RegisterModel implements RegisterInterface.Model {
     }
 
     @Override
-    public void doRegister(final User user) {
+    public void doRegister(User user) {
         firebaseAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

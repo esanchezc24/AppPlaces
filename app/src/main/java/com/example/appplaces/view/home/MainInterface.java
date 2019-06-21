@@ -1,7 +1,6 @@
 package com.example.appplaces.view.home;
 
 import com.example.appplaces.entity.Place;
-import com.example.appplaces.entity.User;
 
 import java.util.ArrayList;
 
@@ -20,9 +19,14 @@ public interface MainInterface {
     }
     interface Model{
         void getPlaces(TaskListener listener);
+        void saveLocation(String latitud, String longitud);
     }
     interface TaskListener{
         void onError(String error);
         void loadPlaces(ArrayList<Place> places);
+    }
+
+    interface Location{
+        void setLocation(String latitud, String longitud);
     }
 }
