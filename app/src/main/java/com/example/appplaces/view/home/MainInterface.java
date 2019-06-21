@@ -1,6 +1,7 @@
 package com.example.appplaces.view.home;
 
 import com.example.appplaces.entity.Place;
+import com.example.appplaces.entity.User;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,6 @@ public interface MainInterface {
         void hideProgress();
 
         void showPlaces(ArrayList<Place> places);
-
         void onError(String error);
 
     }
@@ -19,7 +19,7 @@ public interface MainInterface {
         void setPlaces();
     }
     interface Model{
-        void getPlaces();
+        void getPlaces(TaskListener listener);
     }
     interface TaskListener{
         void onError(String error);

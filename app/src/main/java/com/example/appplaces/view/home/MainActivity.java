@@ -3,6 +3,8 @@ package com.example.appplaces.view.home;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.appplaces.R;
 import com.example.appplaces.entity.Place;
+import com.example.appplaces.entity.User;
 import com.example.appplaces.presenter.MainPresenter;
 import com.example.appplaces.view.place.PlaceActivity;
 
@@ -20,12 +23,18 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     private Button btnPlace;
     private MainInterface.Presenter presenter;
     private MaterialDialog dialog;
+    private RecyclerView recyclerView;
+    private GridLayoutManager gridLayoutManager;
+    private MainAdapter mainAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnPlace = findViewById(R.id.btnPlace);
+        recyclerView = (RecyclerView) findViewById(R.id.rvPlaces);
+        gridLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(gridLayoutManager);
         presenter = new MainPresenter(this);
 
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
@@ -57,12 +66,20 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
 
     @Override
     public void showPlaces(ArrayList<Place> places) {
-        Log.i("MENSAJE", "ACTIVIDAD "+places.get(0).getDescription());
-    }
+        if (places.size() > 0 && places.get(0).getUser() != null){
+            mainAdapter = new MainAdapter(places);
+            recyclerView.setAdapter(mainAdapter);
+        }
 
+    }
 
     @Override
     public void onError(String error) {
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }

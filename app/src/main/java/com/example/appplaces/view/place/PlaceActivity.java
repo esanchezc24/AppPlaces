@@ -157,7 +157,6 @@ public class PlaceActivity extends Activity implements PlaceInterface.View {
         } else {
             place = new Place();
             place.setDescription(edtDecription.getText().toString().trim());
-
             presenter.toSave(place,imagePathList);
         }
 

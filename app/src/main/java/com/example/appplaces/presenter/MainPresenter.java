@@ -12,7 +12,7 @@ public class MainPresenter implements MainInterface.Presenter, MainInterface.Tas
 
     public MainPresenter(MainInterface.View view) {
         this.view = view;
-        model = new MainModel(this);
+        model = new MainModel();
     }
 
     @Override
@@ -22,25 +22,27 @@ public class MainPresenter implements MainInterface.Presenter, MainInterface.Tas
 
     @Override
     public void setPlaces() {
-        if (view !=null){
+        if (view != null) {
             view.showProgress();
-            model.getPlaces();
+            model.getPlaces(this);
         }
-
     }
+
 
     @Override
     public void onError(String error) {
-        if (view !=null){
+        if (view != null) {
             view.onError(error);
         }
     }
 
     @Override
     public void loadPlaces(ArrayList<Place> places) {
-        if (view !=null){
+        if (view != null) {
+            view.hideProgress();
             view.showPlaces(places);
         }
 
     }
+
 }

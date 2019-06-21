@@ -64,23 +64,14 @@ public class PlaceModel implements PlaceInterface.Model {
         objectMap.put("description", place.getDescription());
         objectMap.put("user_id",firebaseAuth.getCurrentUser().getUid());
         objectMap.put("createdAt", new Date());
+        objectMap.put("fotos",listUrl);
         db.collection("places")
                 .add(objectMap)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        for (int i = 0; i < listUrl.size(); i++) {
-                            Map<String, Object> image = new HashMap<>();
-                            image.put("url", listUrl.get(i));
-                            documentReference.collection("fotos")
-                                    .add(image).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.i("MENSAJE","ID "+documentReference.getId());
-                                }
-                            });
-                        }
                         taskListener.onSuccess();
+
 
                     }
                 })
