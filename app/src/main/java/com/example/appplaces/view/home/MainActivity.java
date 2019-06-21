@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MainInterface.Vie
     @Override
     public void showPlaces(ArrayList<Place> places) {
         if (places.size() > 0 && places.get(0).getUser() != null){
-            mainAdapter = new MainAdapter(places);
+            mainAdapter = new MainAdapter(places,this);
             recyclerView.setAdapter(mainAdapter);
         }
 

@@ -14,14 +14,14 @@
         <activity android:name=".view.place.PlaceActivity" />
         <activity android:name=".view.register.RegisterActivity" />
         <activity android:name=".view.login.LoginActivity">
+
+        </activity>
+        <activity android:name=".view.home.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".view.home.MainActivity" >
-
         </activity>
     </application>
 
