@@ -6,12 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appplaces.R;
 import com.example.appplaces.entity.Place;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,8 +35,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         Place place = lisPlaces.get(position);
         fotoAdapter = new FotoAdapter(context,(ArrayList<String>) lisPlaces.get(position).getArrayFotos());
         viewPager.setAdapter(fotoAdapter);
-//        holder.imgFoto.setImageResource(R.drawable.ic_launcher_background);
-//        Picasso.with(context).load(lisPlaces.get(position).getArrayFotos().get(0)).into(holder.imgFoto);
         holder.tvDescription.setText(place.getDescription());
         holder.tvUser.setText(place.getUser().getName());
     }
@@ -49,12 +45,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
     }
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
-//        ImageView imgFoto;
+
         TextView tvDescription;
         TextView tvUser;
         public MainViewHolder(View itemView) {
             super(itemView);
-//            imgFoto = (ImageView) itemView.findViewById(R.id.imgFoto);
             tvDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvUser = (TextView) itemView.findViewById(R.id.tvUser);
             viewPager = (ViewPager) itemView.findViewById(R.id.imgFoto);
