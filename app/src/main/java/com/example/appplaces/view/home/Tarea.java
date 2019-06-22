@@ -8,14 +8,12 @@ import android.location.LocationManager;
 
 import com.example.appplaces.model.MainModel;
 
-class Tarea extends BroadcastReceiver implements MainInterface.Location {
+public class Tarea extends BroadcastReceiver implements MainInterface.Location {
     private MainInterface.Model model = new MainModel();
     private LocationManager locManager;
     private Location location;
 
-    public Tarea() {
 
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

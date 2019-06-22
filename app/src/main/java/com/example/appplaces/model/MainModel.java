@@ -7,25 +7,16 @@ import com.example.appplaces.entity.Place;
 import com.example.appplaces.entity.User;
 import com.example.appplaces.view.home.MainInterface;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-
-import org.w3c.dom.Document;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 
 public class MainModel implements MainInterface.Model {
@@ -56,21 +47,31 @@ public class MainModel implements MainInterface.Model {
                         place.setDescription(document.getString("description"));
                         place.setCreatedAt(document.getTimestamp("createdAt").toDate());
                         place.setArrayFotos((ArrayList<String>) document.get("fotos"));
-                        lisPlaces.add(place); //se agrega el place al array
-                        db.collection("users").document(document.getString("user_id")).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        user = new User();
+                        user.setId(document.getString("user_id"));
+                        place.setUser(user);
+                        lisPlaces.add(place);
+                        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            public void onComplete(@NonNull Task<QuerySnapshot> taskUser) {
                                 count++;
-                                DocumentSnapshot documentUser = task.getResult();
-                                user = new User();
-                                user.setId(documentUser.getId());
-                                user.setEmail(documentUser.getString("email"));
-                                user.setName(documentUser.getString("name"));
-                                lisPlaces.get(count - 1).setUser(user);
-//                                place.setUser(user); //se agrega el user a place
-//                                lisPlaces.add(place); //se agrega el place al array
+                                for (int i = 0; i < taskUser.getResult().size(); i++) {
+                                    DocumentSnapshot document = taskUser.getResult().getDocuments().get(i);
+
+                                    for (int o = 0; o < lisPlaces.size(); o++) {
+                                        String user1 = lisPlaces.get(o).getUser().getId();
+                                        String user2 =document.getId();
+                                        if ( user1.equals(user2)){
+                                            user = new User();
+                                            user.setId(document.getId());
+                                            user.setEmail(document.getString("email"));
+                                            user.setName(document.getString("name"));
+                                            lisPlaces.get(o).setUser(user);
+                                        }
+                                    }
+                                }
                                 if (count == countPlace)
-                                    listener.loadPlaces(lisPlaces); //devuelve la lista.
+                                    listener.loadPlaces(lisPlaces);
                             }
                         });
                     }

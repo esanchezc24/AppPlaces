@@ -34,13 +34,16 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         presenter = new LoginPresenter(this);
+
         MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                 .title("Cargando")
                 .content("Espere, por favor...")
                 .progress(true, 0)
                 .cancelable(false);
         dialog = builder.build();
-
+        if (presenter.toSesion()) {
+            onLogin();
+        }
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), RegisterActivity.class);
+                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
                 startActivityForResult(intent, 0);
             }
         });
@@ -91,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
         else if (!isValidPassword())
             Toast.makeText(this, "Password Incorrecto", Toast.LENGTH_SHORT).show();
         else
-            presenter.toLogin(edtEmail.getText().toString().trim(),edtPassword.getText().toString().trim());
+            presenter.toLogin(edtEmail.getText().toString().trim().toLowerCase(), edtPassword.getText().toString().trim());
 
     }
 
@@ -113,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface.V
     @Override
     public void onLogin() {
         Toast.makeText(this, "Login EXITOSO", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent (this, MainActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivityForResult(intent, 0);
     }
 

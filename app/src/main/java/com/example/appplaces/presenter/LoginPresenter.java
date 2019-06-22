@@ -27,6 +27,18 @@ public class LoginPresenter implements LoginInterface.Presenter, LoginInterface.
     }
 
     @Override
+    public boolean toSesion() {
+        if (view != null) {
+            view.disableInputs();
+            view.showProgress();
+        }
+        boolean sesion = model.doSesion();
+        view.enableInputs();
+        view.hideProgress();
+        return sesion;
+    }
+
+    @Override
     public void onSuccess() {
         if (view != null){
             view.enableInputs();

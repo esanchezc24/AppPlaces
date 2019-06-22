@@ -20,8 +20,10 @@ public interface LoginInterface {
     interface Presenter{
         void onDestroy();
         void toLogin(String email, String password);
+        boolean toSesion();
     }
     interface Model{
+        boolean doSesion();
         void doLogin(String email, String password);
     }
     interface TaskListener{

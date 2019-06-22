@@ -30,4 +30,11 @@ public class LoginModel implements LoginInterface.Model {
         });
 
     }
+
+    public boolean doSesion() {
+        if (firebaseAuth.getCurrentUser() != null){
+            return true;
+        }
+        return false;
+    }
 }
